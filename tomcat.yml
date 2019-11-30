@@ -1,0 +1,21 @@
+---
+- hosts: web01
+  become: yes
+  gather_facts: false
+
+  tasks:
+          - name: download tomcat software
+            get_url: url=http://mirrors.estointernet.in/apache/tomcat/tomcat-8/v8.5.49/bin/apache-tomcat-8.5.49.tar.gz dest=/root
+
+          - name: Unarchive a file that is already on the remote machine
+            unarchive:
+                src: /root/apache-tomcat-8.5.49.tar.gz
+                dest: /root
+                remote_src: yes
+
+          - name: install jdk software on client
+            apt: name=openjdk-8-jdk state=present
+
+            
+          - name: start tomcat on client
+            shell: /root/apache-tomcat-8.5.49/bin/startup.sh

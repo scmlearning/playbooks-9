@@ -1,0 +1,11 @@
+---
+- hosts: web01
+  become: yes
+  gather_facts: false
+
+  tasks:
+          - name: install apache webserver
+            apt: name=apache2 state=present
+
+          - name: start apache service
+            service: name=apache2 state=started enabled=yes
